@@ -6,17 +6,32 @@ import jakarta.persistence.*;
 @Table(name = "planet")
 public class Planet {
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id;
 
     @Column(nullable = false, length = 500)
     private String name;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Planet{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

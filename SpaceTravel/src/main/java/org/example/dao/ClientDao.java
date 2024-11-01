@@ -16,7 +16,7 @@ public class ClientDao {
 
        try(Session session = sessionFactory.openSession()) {
            Transaction tx = session.beginTransaction();
-           session.persist(client);
+           session.merge(client);
            tx.commit();
        }
 
@@ -28,7 +28,7 @@ public class ClientDao {
     }
     public void findAll() {
         try(Session session = sessionFactory.openSession()) {
-           Query query =session.createQuery("from Client");
+           Query query =session.createQuery("from Client", Client.class);
            List<Client> list = query.list();
            list.forEach(System.out::println);
 
@@ -38,17 +38,25 @@ public class ClientDao {
     public void update(Client client) {
         try(Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
-            session.update(client);
+            session.merge(client);
             tx.commit();
         }
     }
 
     public void delete(Client client) {
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
-            session.delete(client);
+            // Fetch the managed entity before deleting
+            Client managedClient = session.find(Client.class, client.getId());
+            if (managedClient != null) {
+                session.delete(managedClient); // Delete the managed entity
+            } else {
+                System.out.println("Client not found for deletion.");
+            }
             tx.commit();
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
 }

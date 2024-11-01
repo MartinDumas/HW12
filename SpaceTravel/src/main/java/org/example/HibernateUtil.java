@@ -13,10 +13,14 @@ public class HibernateUtil {
 
     static {
         Flyway flyway = Flyway.configure()
-                .dataSource("jdbc:h2:mem:default", "sa", "")
-                .locations("db/migrations")
+                .dataSource("jdbc:postgresql://localhost:5432/HW12", "postgres", "2490")
+                .locations("db/migration")
+                .baselineOnMigrate(true)
                 .load();
+
         flyway.migrate();
+
+
         INSTANCE = new HibernateUtil();
     }
 

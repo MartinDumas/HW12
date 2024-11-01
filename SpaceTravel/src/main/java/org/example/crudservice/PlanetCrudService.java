@@ -10,7 +10,7 @@ public class PlanetCrudService {
     public void save(Planet planet) {
         planetDao.save(planet);
     }
-    public Planet getPlanetById(int id) {
+    public Planet getPlanetById(String id) {
         return planetDao.getPlanetById(id);
     }
     public void getAllPlanets() {
