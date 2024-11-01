@@ -2,10 +2,14 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 
+import javax.validation.constraints.Pattern;
+
+
 @Entity
 @Table(name = "planet")
 public class Planet {
     @Id
+    @Pattern(regexp = "^[A-Z0-9]+$")
     private String id;
 
     @Column(nullable = false, length = 500)

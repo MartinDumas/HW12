@@ -19,6 +19,9 @@ dependencies {
 // https://mvnrepository.com/artifact/org.flywaydb/flyway-core
     implementation("org.flywaydb:flyway-core:9.3.1")
     implementation("org.postgresql:postgresql:42.5.0")
+    implementation ("org.hibernate.validator:hibernate-validator:6.2.0.Final") // or the latest version
+    implementation ("jakarta.validation:jakarta.validation-api:2.0.1") // or the latest version
+
 
 
 
