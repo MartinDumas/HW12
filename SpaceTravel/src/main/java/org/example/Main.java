@@ -2,14 +2,22 @@ package org.example;
 
 import org.example.crudservice.ClientCrudService;
 import org.example.crudservice.PlanetCrudService;
+import org.example.crudservice.TicketCrudService;
 import org.example.entity.Client;
 import org.example.entity.Planet;
+import org.example.entity.Ticket;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import static java.lang.System.currentTimeMillis;
 
 public class Main {
     public static void main(String[] args) {
         // Initialize services
         ClientCrudService crudService = new ClientCrudService();
         PlanetCrudService planetCrudService = new PlanetCrudService();
+        TicketCrudService ticketCrudService = new TicketCrudService();
 
         // Create a new client
         Client client = new Client();
@@ -57,6 +65,24 @@ public class Main {
         System.out.println("Updated Planet: " + planet);
 
         planetCrudService.delete(planet);
+
+        System.out.println("-----------------------------------------------------------------");
+        Planet fromPlanet = planetCrudService.getPlanetById("MARS");
+        Planet toPlanet = planetCrudService.getPlanetById("VEN");
+        Client client1 = crudService.findClientById(1L);
+
+        Ticket ticket = new Ticket();
+        ticket.setClient(client1);
+        ticket.setFromPlanet(fromPlanet);
+        ticket.setToPlanet(toPlanet);
+
+        ticketCrudService.add(ticket);
+        System.out.println("Added Ticket: " + ticket);
+
+        System.out.println(ticketCrudService.findById(4l));
+        ticketCrudService.findAll();
+
+        ticketCrudService.delete(ticketCrudService.findById(20l));
 
         HibernateUtil.getInstance().closeSession();
 
